@@ -35,11 +35,6 @@ function ProjectCard({
           <div className="absolute inset-0 bg-gradient-to-br from-stone-200 to-stone-100" />
         )}
       </div>
-      <div className="px-3 py-2.5">
-        <p className="line-clamp-2 text-[13px] font-medium leading-relaxed text-stone-700">
-          {item.title}
-        </p>
-      </div>
     </button>
   );
 }
