@@ -246,6 +246,12 @@ export const site = {
       year: "2025年5月",
     },
     {
+      category: "研究・ビジネス",
+      title: "Stanford e-Entrepreneurship Japan 採択",
+      issuer: "Stanford e-Entrepreneurship Japan",
+      year: "2026年4月",
+    },
+    {
       category: "プログラム・奨学金",
       title: "未踏ジュニア 採択",
       issuer: "未踏ジュニア",
