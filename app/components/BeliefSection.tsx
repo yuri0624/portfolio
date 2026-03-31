@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { publicPath } from "@/lib/publicPath";
@@ -29,12 +29,14 @@ export function BeliefSection() {
     const el = headerRef.current;
     if (!el) return;
 
-    const NAV_HEIGHT_PX = 52; // app/components/Header.tsx の高さ（h-[52px]）
-
     const update = () => {
+      const headerEl = document.querySelector("header");
+      const headerH =
+        headerEl instanceof HTMLElement
+          ? Math.round(headerEl.getBoundingClientRect().height)
+          : 52;
       const rect = el.getBoundingClientRect();
-      // stickyする「My Story」見出しの下に写真・本文が来るようにオフセットする
-      setStoryTopOffset(Math.ceil(NAV_HEIGHT_PX + rect.height + 8));
+      setStoryTopOffset(Math.ceil(headerH + rect.height + 8));
     };
 
     update();

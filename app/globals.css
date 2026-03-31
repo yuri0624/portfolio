@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  overflow-x: clip;
+}
+
 :root {
   color-scheme: light;
   --background: #fafaf9;

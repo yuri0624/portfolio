@@ -65,7 +65,7 @@ export function ActivitiesSection() {
             onClick={() => setActiveIndex(null)}
           >
             <div
-              className="w-full max-w-xl rounded-2xl bg-[#fafaf9] p-5 shadow-2xl ring-1 ring-stone-200 sm:p-7"
+              className="max-h-[min(90dvh,calc(100dvh-2rem))] w-full max-w-xl overflow-x-hidden overflow-y-auto overscroll-contain rounded-2xl bg-[#fafaf9] p-5 shadow-2xl ring-1 ring-stone-200 sm:p-7"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="mb-4 flex items-start justify-between gap-3">

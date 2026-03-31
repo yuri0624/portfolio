@@ -9,9 +9,9 @@ import { VideosSection } from "./components/VideosSection";
 
 export default function Home() {
   return (
-    <div className="flex min-h-full flex-col bg-[#fafaf9] text-stone-900">
+    <div className="flex min-h-full min-w-0 flex-col overflow-x-clip bg-[#fafaf9] text-stone-900">
       <Header />
-      <main className="flex-1">
+      <main className="min-w-0 flex-1">
         <Intro />
         <BeliefSection />
         <ActivitiesSection />

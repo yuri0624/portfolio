@@ -1,8 +1,51 @@
- "use client";
+"use client";
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { publicPath } from "@/lib/publicPath";
+
+function stepImageSrc(
+  stepImages: string[],
+  index: number
+): string {
+  return (
+    stepImages[index] ??
+    stepImages[0] ??
+    publicPath("/profile-v2.png")
+  );
+}
+
+/** 狭い画面では IntersectionObserver 前提のスクロール連動が不安定になりやすいので、段落ごとに縦並びで見せる */
+function StoryMobileStack({
+  steps,
+  stepImages,
+}: {
+  steps: string[];
+  stepImages: string[];
+}) {
+  return (
+    <div className="space-y-14 lg:hidden">
+      {steps.map((step, idx) => (
+        <article key={idx} className="space-y-5">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-stone-200/80">
+            <Image
+              src={stepImageSrc(stepImages, idx)}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority={idx === 0}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#fafaf9] via-transparent to-transparent opacity-40" />
+          </div>
+          <p className="text-left text-[17px] leading-[1.85] text-stone-600">
+            {step}
+          </p>
+        </article>
+      ))}
+    </div>
+  );
+}
 
 export function StoryScrollytelling({
   steps,
@@ -23,11 +66,7 @@ export function StoryScrollytelling({
   }, [activeIndex]);
 
   const activeImage = useMemo(() => {
-    return (
-      stepImages[activeIndex] ||
-      stepImages[0] ||
-      publicPath("/profile-v2.png")
-    );
+    return stepImageSrc(stepImages, activeIndex);
   }, [activeIndex, stepImages]);
 
   useEffect(() => {
@@ -38,7 +77,6 @@ export function StoryScrollytelling({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // 複数同時に交差することがあるので、いちばん下（最大index）を採用
         const intersecting = entries
           .filter((e) => e.isIntersecting)
           .map((e) => Number((e.target as HTMLElement).dataset.index || "0"));
@@ -47,14 +85,13 @@ export function StoryScrollytelling({
         const next = Math.max(...intersecting);
         if (next === activeIndexRef.current) return;
 
-        // 連続スクロールで発火しても、状態更新を 1 フレームにまとめて滑らかにする
         requestAnimationFrame(() => {
           setActiveIndex(next);
         });
       },
       {
-        // 文章が中央付近に来たときに切り替える
         threshold: 0.55,
+        rootMargin: "-12% 0px -18% 0px",
       }
     );
 
@@ -64,53 +101,55 @@ export function StoryScrollytelling({
   }, [steps.length]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
-      <div
-        className="lg:sticky flex h-[62vh] min-h-[400px] items-center"
-        style={{ top: topOffsetPx ? `${topOffsetPx}px` : undefined }}
-      >
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-stone-200/80">
-          <Image
-            key={activeIndex}
-            src={activeImage}
-            alt=""
-            fill
-            className="object-cover transition duration-500 ease-out story-animate-in"
-            sizes="(min-width: 1024px) 32rem, 100vw"
-            priority={activeIndex === 0}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#fafaf9] via-transparent to-transparent opacity-40" />
-        </div>
-      </div>
+    <>
+      <StoryMobileStack steps={steps} stepImages={stepImages} />
 
-      <div>
+      <div className="hidden gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
         <div
-          className="lg:sticky flex h-[62vh] min-h-[400px] items-center"
+          className="flex h-[62vh] min-h-[400px] items-center lg:sticky"
           style={{ top: topOffsetPx ? `${topOffsetPx}px` : undefined }}
         >
-          <p
-            key={activeIndex}
-            className="story-animate-in max-w-2xl text-left text-[17px] leading-[1.85] text-stone-600"
-          >
-            {steps[activeIndex] ?? steps[0]}
-          </p>
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-stone-200/80">
+            <Image
+              key={activeIndex}
+              src={activeImage}
+              alt=""
+              fill
+              className="object-cover transition duration-500 ease-out story-animate-in"
+              sizes="(min-width: 1024px) 32rem, 100vw"
+              priority={activeIndex === 0}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#fafaf9] via-transparent to-transparent opacity-40" />
+          </div>
         </div>
 
-        {/* スクロールの“段”を作る（ここは表示しない） */}
-        <div className="mt-8">
-          {steps.map((_, idx) => (
-            <div
-              key={idx}
-              data-index={idx}
-              ref={(el) => {
-                triggersRef.current[idx] = el;
-              }}
-              className="h-[62vh] min-h-[400px]"
-            />
-          ))}
+        <div>
+          <div
+            className="flex h-[62vh] min-h-[400px] items-center lg:sticky"
+            style={{ top: topOffsetPx ? `${topOffsetPx}px` : undefined }}
+          >
+            <p
+              key={activeIndex}
+              className="story-animate-in max-w-2xl text-left text-[17px] leading-[1.85] text-stone-600"
+            >
+              {steps[activeIndex] ?? steps[0]}
+            </p>
+          </div>
+
+          <div className="mt-8">
+            {steps.map((_, idx) => (
+              <div
+                key={idx}
+                data-index={idx}
+                ref={(el) => {
+                  triggersRef.current[idx] = el;
+                }}
+                className="h-[62vh] min-h-[400px]"
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-

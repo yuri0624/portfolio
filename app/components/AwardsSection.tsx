@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { publicPath } from "@/lib/publicPath";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 
@@ -31,37 +29,24 @@ export function AwardsSection() {
                   {rows.map((a, i) => (
                     <li
                       key={`${category}-${i}`}
-                      className="flex flex-col gap-4 py-7 first:pt-0 sm:flex-row sm:items-start sm:gap-6"
+                      className="flex flex-col gap-2 py-7 first:pt-0 sm:flex-row sm:items-baseline sm:gap-12"
                     >
-                      {a.image ? (
-                        <div className="relative mx-auto aspect-[4/3] w-full max-w-[200px] shrink-0 overflow-hidden rounded-xl bg-stone-100 ring-1 ring-stone-200/80 sm:mx-0 sm:h-[4.75rem] sm:w-28 sm:max-w-none">
-                          <Image
-                            src={publicPath(a.image)}
-                            alt={`${a.title}に関連するビジュアル`}
-                            fill
-                            className="object-cover"
-                            sizes="(min-width: 640px) 7rem, 200px"
-                          />
-                        </div>
-                      ) : null}
-                      <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-12">
-                        <div className="shrink-0 sm:w-28">
-                          {a.year ? (
-                            <span className="text-[14px] font-medium tabular-nums text-stone-500">
-                              {a.year}
-                            </span>
-                          ) : null}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[17px] font-semibold text-stone-900">
-                            {a.title}
+                      <div className="shrink-0 sm:w-28">
+                        {a.year ? (
+                          <span className="text-[14px] font-medium tabular-nums text-stone-500">
+                            {a.year}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[17px] font-semibold text-stone-900">
+                          {a.title}
+                        </p>
+                        {a.work ? (
+                          <p className="mt-1 text-[15px] text-stone-500">
+                            {a.work}
                           </p>
-                          {a.work ? (
-                            <p className="mt-1 text-[15px] text-stone-500">
-                              {a.work}
-                            </p>
-                          ) : null}
-                        </div>
+                        ) : null}
                       </div>
                     </li>
                   ))}

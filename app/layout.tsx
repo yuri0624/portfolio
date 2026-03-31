@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Geist, Geist_Mono, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     "吉田祐梨のポートフォリオ。自己紹介・信念・活動・受賞・取材記事の一覧。",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,7 +45,9 @@ export default function RootLayout({
       lang="ja"
       className={`${display.variable} ${noto.variable} ${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full min-w-0 flex-col overflow-x-clip">
+        {children}
+      </body>
     </html>
   );
 }
