@@ -1,6 +1,7 @@
  "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { publicPath } from "@/lib/publicPath";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 import { StoryScrollytelling } from "./StoryScrollytelling";
@@ -17,8 +18,8 @@ export function BeliefSection() {
     5: "/media/story-step-6.png",
   };
 
-  const stepImages = paragraphs.map(
-    (_, i) => imageByParagraphIndex[i] || "/profile-v2.png"
+  const stepImages = paragraphs.map((_, i) =>
+    publicPath(imageByParagraphIndex[i] || "/profile-v2.png")
   );
 
   const headerRef = useRef<HTMLDivElement | null>(null);

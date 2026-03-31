@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { publicPath } from "@/lib/publicPath";
 import { site } from "@/lib/site";
 import { linkActionLabel } from "@/lib/videoLinkLabel";
 import { SectionHeading } from "./SectionHeading";
@@ -13,7 +14,7 @@ function ArticleVisual({
   return (
     <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl bg-stone-200/60 ring-1 ring-stone-200/80 sm:w-56 md:w-64">
       <Image
-        src={image}
+        src={publicPath(image)}
         alt={`「${title}」のメイン画像`}
         fill
         className="object-cover transition duration-300 group-hover:scale-[1.02]"

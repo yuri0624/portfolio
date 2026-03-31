@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { publicPath } from "@/lib/publicPath";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 
@@ -40,7 +41,7 @@ export function ActivitiesSection() {
                 <div className="relative aspect-video w-full overflow-hidden bg-stone-100">
                   {item.image ? (
                     <Image
-                      src={item.image}
+                      src={publicPath(item.image)}
                       alt={`${item.title} のサムネイル`}
                       fill
                       sizes="(min-width: 768px) 33vw, 50vw"
@@ -92,7 +93,7 @@ export function ActivitiesSection() {
               active.imageHeight != null ? (
                 <div className="mb-5 w-full overflow-hidden rounded-lg bg-stone-100">
                   <Image
-                    src={active.image}
+                    src={publicPath(active.image)}
                     alt=""
                     width={active.imageWidth}
                     height={active.imageHeight}

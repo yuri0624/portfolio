@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { publicPath } from "@/lib/publicPath";
 import { site } from "@/lib/site";
 
 export function Intro() {
@@ -13,7 +14,7 @@ export function Intro() {
         <div className="md:sticky md:top-28">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-[300px] md:mx-0 md:max-w-none">
             <Image
-              src="/profile-v2.png"
+              src={publicPath("/profile-v2.png")}
               alt={`${site.nameJa}の肖像`}
               fill
               sizes="(min-width: 768px) 340px, 280px"

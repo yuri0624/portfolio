@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { publicPath } from "@/lib/publicPath";
 
 export function StoryScrollytelling({
   steps,
@@ -22,7 +23,11 @@ export function StoryScrollytelling({
   }, [activeIndex]);
 
   const activeImage = useMemo(() => {
-    return stepImages[activeIndex] || stepImages[0] || "/profile-v2.png";
+    return (
+      stepImages[activeIndex] ||
+      stepImages[0] ||
+      publicPath("/profile-v2.png")
+    );
   }, [activeIndex, stepImages]);
 
   useEffect(() => {
