@@ -264,7 +264,7 @@ export const site = {
     {
       title: "Fulove",
       description:
-        "友達と入浴記録を共有し、風呂キャン（入浴サボり）を防ぐことを目的としたアプリです。",
+        "友達と入浴記録を共有し、風呂キャンセルを防ぐことを目的としたアプリです。入浴しないと友達に通知がいき、さらに自分のアイコンが茶色く汚くなります。",
       image: "/media/projects/fulove.png",
       imageWidth: 1764,
       imageHeight: 986,
@@ -272,7 +272,7 @@ export const site = {
     {
       title: "Nutorio",
       description:
-        "シンプルなステップで料理に取り組み、健康的な食習慣をつくることを支援するアプリです。",
+        "小さなステップを達成していくことで料理する習慣をつけることを支援するアプリです。",
       image: "/media/projects/nutorio.png",
       imageWidth: 1756,
       imageHeight: 980,
@@ -280,7 +280,7 @@ export const site = {
     {
       title: "Beat the Heat",
       description:
-        "高齢者の熱中症予防を目的としたスマートフォンアプリです。天気や気温などの情報を踏まえ、体調管理をサポートします。",
+        "高齢者の熱中症予防を目的としたスマートフォンアプリです。運動や水分補給、クールシェアをサポートし、家族と連携することで様子を見守ることもできます。また、micro:bitで作ったデバイスにより、運動回数を自動で検知して記録することもできます。Sakura Techというチームで開発し、私はアプリの機能設計、コーディングを担当しました。",
       image: "/media/projects/beat-the-heat.png",
       imageWidth: 1024,
       imageHeight: 575,
@@ -296,32 +296,31 @@ export const site = {
     {
       title: "TasteLink",
       description:
-        "世界各国の料理や文化を「味」でつなぐ体験を支援するアプリです。フラッグコレクションやジャーニー進捗、保存した料理の閲覧など、写真ベースで食の探求を記録できます。",
+        "アメリカ留学中、超加工食品への依存と自炊のモチベーション低下に悩んでいました。しかし、同時に多様な食文化に触れることで「作ってみたい！」という好奇心が湧き、料理を続けられた経験からこのアプリを作りました。食事を撮影して健康スコアを獲得し、スコアに応じて世界中のユーザーの食事がアンロックされます。文化的インスピレーションを得ながら健康的な自炊習慣を育てます。",
       image: "/media/projects/tastelink.png",
       imageWidth: 1648,
       imageHeight: 912,
     },
     {
-      title: "MISSION & VISION — 給食と食の流れ",
+      title: "のこさーず",
       description:
-        "日本の学校給食が直面する残菜・無償化・現場の非効率といった課題を背景に、契約農家と管理栄養士のレシピをつなぐSaaSで「残さず、つなぐ、未来へ」「無駄のない食の流れを創る」を掲げる事業の紹介スライドです。",
+        "自治体と連携して学校給食の課題を解決するプロジェクトにエンジニアとして携わっています。",
       image: "/media/projects/mission-vision-school-lunch.png",
       imageWidth: 952,
       imageHeight: 550,
     },
     {
-      title:
-        "Reducing Diabetes Risk Through Japanese-Style School Lunch Programs（MFC 2025-26 提出）",
+      title: "Reducing Diabetes Risk Through Japanese-Style School Lunch Programs",
       description:
-        "Modeling the Future Challenge（2025-26）に提出した文書の表紙です。アメリカの学校における日本式給食プログラムと糖尿病リスク低減について、リスク分析と導入戦略を扱っています。",
+        "アメリカの学校における日本式給食プログラムを導入した際の費用対効果と糖尿病リスク低減について、数理モデルを使ってシミュレーションした研究です。",
       image: "/media/projects/modeling-the-future-title.png",
       imageWidth: 1604,
       imageHeight: 1184,
     },
     {
-      title: "METHODS ① — KG 構築と評価設計",
+      title: "StructRotatE",
       description:
-        "知識グラフ研究の方法スライドです。ChEMBL・FOODB・UniProt などのデータソース、学習／テスト分割と化合物スプリット、ノード・リレーションの設計、およびベースライン手法との比較の整理を示しています。",
+        "知識グラフを用いて食品成分が体内に与える影響をモデル化する研究です。",
       image: "/media/projects/kg-methods-kge-design.png",
       imageWidth: 2048,
       imageHeight: 1244,
