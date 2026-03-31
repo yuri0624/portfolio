@@ -29,6 +29,8 @@ export type AwardEntry = {
   work?: string;
   year?: string;
   detail?: string;
+  /** サムネイル（`/public` 配下や外部 URL）。未設定ならテキストのみ */
+  image?: string;
 };
 
 export type ActivityEntry = {
@@ -167,6 +169,7 @@ export const site = {
       issuer: "アプリ甲子園",
       work: "BentoColor",
       year: "2023年11月",
+      image: "/media/projects/bentocolor.png",
     },
     {
       category: "アプリ開発",
@@ -174,6 +177,7 @@ export const site = {
       issuer: "東京都モバイルアプリコンテスト",
       work: "BentoColor",
       year: "2024年1月",
+      image: "/media/projects/bentocolor.png",
     },
     {
       category: "アプリ開発",
@@ -181,6 +185,7 @@ export const site = {
       issuer: "アプリ甲子園",
       work: "BentoPalette",
       year: "2024年11月",
+      image: "/media/projects/bentocolor.png",
     },
     {
       category: "アプリ開発",
@@ -188,6 +193,7 @@ export const site = {
       issuer: "アプリ甲子園",
       work: "BentoPalette",
       year: "2024年11月",
+      image: "/media/projects/bentocolor.png",
     },
     {
       category: "アプリ開発",
@@ -195,18 +201,21 @@ export const site = {
       issuer: "東京都モバイルアプリコンテスト",
       work: "BentoPalette, Fulove",
       year: "2025年1月",
+      image: "/media/projects/fulove.png",
     },
     {
       category: "アプリ開発",
       title: "Technovation Girls 日本公式ピッチイベント Lenovo賞",
       issuer: "Technovation Girls",
       year: "2025年6月",
+      image: "/media/projects/tastelink.png",
     },
     {
       category: "アプリ開発",
       title: "micro:bit 「do your :bit」 international showcase 選出",
       issuer: "micro:bit",
       year: "2025年9月",
+      image: "/media/projects/beat-the-heat.png",
     },
     {
       category: "アプリ開発",
@@ -214,36 +223,42 @@ export const site = {
       issuer: "Congressional App Challenge",
       work: "Nutorio",
       year: "2025年10月",
+      image: "/media/projects/nutorio.png",
     },
     {
       category: "研究・ビジネス",
       title: "東京都大学ジュニア起業講座 優秀発表者",
       issuer: "東京都大学ジュニア起業講座",
       year: "2023年2月",
+      image: "/media/projects/mission-vision-school-lunch.png",
     },
     {
       category: "研究・ビジネス",
       title: "株式会社Unpacked AbsoluteU-18 採択・TOP8選出",
       issuer: "株式会社Unpacked AbsoluteU-18",
       year: "2024年11月",
+      image: "/media/projects/modeling-the-future-title.png",
     },
     {
       category: "研究・ビジネス",
       title: "Global Enterprise Challenge TOP12",
       issuer: "Global Enterprise Challenge",
       year: "2025年3月",
+      image: "/media/projects/modeling-the-future-title.png",
     },
     {
       category: "研究・ビジネス",
       title: "GTEビジネスプランコンテスト TOP30賞",
       issuer: "GTEビジネスプランコンテスト",
       year: "2025年5月",
+      image: "/media/projects/modeling-the-future-title.png",
     },
     {
       category: "研究・ビジネス",
       title: "SusHi Tech Teen Challenge 登壇",
       issuer: "SusHi Tech Teen Challenge",
       year: "2025年5月",
+      image: "/media/projects/mission-vision-school-lunch.png",
     },
     {
       category: "プログラム・奨学金",
@@ -251,12 +266,14 @@ export const site = {
       issuer: "未踏ジュニア",
       work: "BentoColor",
       year: "2024年4月",
+      image: "/media/projects/bentocolor.png",
     },
     {
       category: "プログラム・奨学金",
       title: "ガイアックス未来の起業家奨学金 採択",
       issuer: "ガイアックス未来の起業家奨学金",
       year: "2025年4月",
+      image: "/media/projects/modeling-the-future-title.png",
     },
   ] satisfies AwardEntry[],
 
