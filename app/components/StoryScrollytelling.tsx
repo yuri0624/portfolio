@@ -15,34 +15,99 @@ function stepImageSrc(
   );
 }
 
-/** 狭い画面では IntersectionObserver 前提のスクロール連動が不安定になりやすいので、段落ごとに縦並びで見せる */
-function StoryMobileStack({
+function StoryMobilePager({
   steps,
   stepImages,
 }: {
   steps: string[];
   stepImages: string[];
 }) {
+  const [index, setIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    setIndex((prev) => Math.min(prev, Math.max(steps.length - 1, 0)));
+  }, [steps.length]);
+
+  const currentText = steps[index] ?? steps[0] ?? "";
+  const currentImage = stepImageSrc(stepImages, index);
+  const canPrev = index > 0;
+  const canNext = index < steps.length - 1;
+
+  const onPrev = () => setIndex((v) => Math.max(0, v - 1));
+  const onNext = () => setIndex((v) => Math.min(steps.length - 1, v + 1));
+
   return (
-    <div className="space-y-14 lg:hidden">
-      {steps.map((step, idx) => (
-        <article key={idx} className="space-y-5">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-stone-200/80">
-            <Image
-              src={stepImageSrc(stepImages, idx)}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority={idx === 0}
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#fafaf9] via-transparent to-transparent opacity-40" />
-          </div>
-          <p className="text-left text-[17px] leading-[1.85] text-stone-600">
-            {step}
-          </p>
-        </article>
-      ))}
+    <div className="lg:hidden">
+      <div
+        className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-stone-200/80"
+        onTouchStart={(e) => {
+          touchStartX.current = e.touches[0]?.clientX ?? null;
+        }}
+        onTouchEnd={(e) => {
+          if (touchStartX.current == null) return;
+          const endX = e.changedTouches[0]?.clientX ?? touchStartX.current;
+          const dx = endX - touchStartX.current;
+          touchStartX.current = null;
+          if (Math.abs(dx) < 40) return;
+          if (dx < 0) onNext();
+          if (dx > 0) onPrev();
+        }}
+      >
+        <Image
+          key={index}
+          src={currentImage}
+          alt=""
+          fill
+          className="object-cover story-animate-in"
+          sizes="100vw"
+          priority={index === 0}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#fafaf9] via-transparent to-transparent opacity-40" />
+      </div>
+
+      <div className="mt-4 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={onPrev}
+          disabled={!canPrev}
+          className="rounded-md border border-stone-300 px-3 py-1.5 text-[13px] text-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          前へ
+        </button>
+        <span className="text-[12px] tabular-nums text-stone-500">
+          {index + 1} / {steps.length}
+        </span>
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!canNext}
+          className="rounded-md border border-stone-300 px-3 py-1.5 text-[13px] text-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          次へ
+        </button>
+      </div>
+
+      <p
+        key={index}
+        className="story-animate-in mt-5 text-left text-[17px] leading-[1.85] text-stone-600"
+      >
+        {currentText}
+      </p>
+
+      <div className="mt-4 flex justify-center gap-1.5">
+        {steps.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={`${i + 1}番目のストーリーへ`}
+            onClick={() => setIndex(i)}
+            className={`h-1.5 rounded-full transition-all ${
+              i === index ? "w-6 bg-stone-700" : "w-1.5 bg-stone-300"
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -102,7 +167,7 @@ export function StoryScrollytelling({
 
   return (
     <>
-      <StoryMobileStack steps={steps} stepImages={stepImages} />
+      <StoryMobilePager steps={steps} stepImages={stepImages} />
 
       <div className="hidden gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
         <div

@@ -3,8 +3,46 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { publicPath } from "@/lib/publicPath";
-import { site } from "@/lib/site";
+import { site, type ActivityEntry } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
+
+function ProjectCard({
+  item,
+  onOpen,
+  sizes,
+}: {
+  item: ActivityEntry;
+  onOpen: () => void;
+  sizes: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group w-full overflow-hidden rounded-xl border border-stone-200/90 bg-white/80 text-left outline-none transition hover:border-stone-300 hover:shadow-[0_8px_24px_-16px_rgba(0,0,0,0.35)] focus-visible:ring-2 focus-visible:ring-stone-400"
+      aria-label={`${item.title} の詳細を開く`}
+    >
+      <div className="relative aspect-video w-full overflow-hidden bg-stone-100">
+        {item.image ? (
+          <Image
+            src={publicPath(item.image)}
+            alt={`${item.title} のサムネイル`}
+            fill
+            sizes={sizes}
+            className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-stone-200 to-stone-100" />
+        )}
+      </div>
+      <div className="px-3 py-2.5">
+        <p className="line-clamp-2 text-[13px] font-medium leading-relaxed text-stone-700">
+          {item.title}
+        </p>
+      </div>
+    </button>
+  );
+}
 
 export function ActivitiesSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -26,32 +64,32 @@ export function ActivitiesSection() {
     >
       <div className="mx-auto max-w-5xl">
         <SectionHeading en="Projects" ja="プロジェクト" />
-        <ul className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3">
+
+        <ul className="-mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2 md:hidden">
           {site.activities.map((item, i) => (
             <li
               key={i}
-              className="group"
+              className="w-[78vw] min-w-[78vw] max-w-[350px] shrink-0 snap-center"
             >
-              <button
-                type="button"
-                onClick={() => setActiveIndex(i)}
-                className="w-full overflow-hidden rounded-xl border border-stone-200/90 bg-white/80 text-left outline-none transition hover:border-stone-300 hover:shadow-[0_8px_24px_-16px_rgba(0,0,0,0.35)] focus-visible:ring-2 focus-visible:ring-stone-400"
-                aria-label={`${item.title} の詳細を開く`}
-              >
-                <div className="relative aspect-video w-full overflow-hidden bg-stone-100">
-                  {item.image ? (
-                    <Image
-                      src={publicPath(item.image)}
-                      alt={`${item.title} のサムネイル`}
-                      fill
-                      sizes="(min-width: 768px) 33vw, 50vw"
-                      className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-stone-200 to-stone-100" />
-                  )}
-                </div>
-              </button>
+              <ProjectCard
+                item={item}
+                onOpen={() => setActiveIndex(i)}
+                sizes="78vw"
+              />
+            </li>
+          ))}
+        </ul>
+
+        <ul className="hidden grid-cols-2 gap-4 sm:gap-5 md:grid md:grid-cols-3">
+          {site.activities.map((item, i) => (
+            <li
+              key={i}
+            >
+              <ProjectCard
+                item={item}
+                onOpen={() => setActiveIndex(i)}
+                sizes="(min-width: 768px) 33vw, 50vw"
+              />
             </li>
           ))}
         </ul>
